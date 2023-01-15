@@ -26,6 +26,15 @@ public class NewsServiceImpl implements INewsService {
 	}
 
 	@Override
+	public void add(News news) throws ServiceException {
+		try {
+			newsDAO.addNews(news);
+		} catch (NewsDAOException e) {
+			throw new ServiceException(e);
+		}
+	}	
+	
+	@Override
 	public void update(News news) throws ServiceException {
 		try {
 			newsDAO.updateNews(news);

@@ -57,6 +57,6 @@
 		<div class="first-view-button">
 			<input type="hidden" name="command" value="do_delete_news" /> 
 			<input type="submit" value="DELETE" />
-		</div>
+	</div>
 	</c:if>	
 </form>

@@ -52,7 +52,7 @@ public class NewsDAO implements INewsDAO {
 		if (indexDelete >= 0) {
 			result.remove(indexDelete);
 		}
-		result.removeIf(o -> o.getIdNews().equals(news.getIdNews()));
+//		result.removeIf(o -> o.getIdNews().equals(news.getIdNews()));
 		result.add(news);
 	}
 
