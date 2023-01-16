@@ -51,7 +51,7 @@
 	<div class="first-view-button">
 			<input type="hidden" name="command" value="do_add_news" /> 
 			<input type="hidden" name="id" value="${news.idNews}" /> 
-			<input type="submit" value="SAVE" />
+			<input type="submit" value="Save" />
 		</div>
 	</c:if>
 	</form>
@@ -60,7 +60,7 @@
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="go_to_news_list" /> 
 			<input type="hidden" name="id" value="${news.idNews}" /> 
-			<input type="submit" value="CANCEL" />
+			<input type="submit" value="Cancel" />
 		</form>
 	</div>
 	

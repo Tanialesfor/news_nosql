@@ -56,7 +56,7 @@
 	<c:if test="${sessionScope.role eq 'admin'}">
 		<div class="first-view-button">
 			<input type="hidden" name="command" value="do_delete_news" /> 
-			<input type="submit" value="DELETE" />
+			<input type="submit" value="Delete" />
 	</div>
 	</c:if>	
 </form>
