@@ -1,8 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>
 
 <div class="body-title">
-	<a href="">News >> </a> News List
+	<a href="">${news_} </a> ${news_list_b}
 </div>
 
 <form action="controller" method="post">
@@ -22,10 +23,10 @@
 				<div class="news-link-to-wrapper">
 					<div class="link-position">
 						<c:if test="${sessionScope.role eq 'admin'}">
-						      <a href="controller?command=go_to_edit_news&id=${news.idNews}">editlink </a> 
+						      <a href="controller?command=go_to_edit_news&id=${news.idNews}"> ${editlink} </a> 
 						</c:if>
 						
-						<a href="controller?command=go_to_view_news&id=${news.idNews}">viewlink </a> 
+						<a href="controller?command=go_to_view_news&id=${news.idNews}"> ${viewlink} </a> 
    					    
    					    <c:if test="${sessionScope.role eq 'admin'}">
    					         <input type="checkbox" name="id" value="${news.idNews}" />
@@ -49,14 +50,14 @@
 
 	<div class="no-news">
 		<c:if test="${requestScope.news eq null}">
-        No news.
+        ${no_news}
 	</c:if>
 	</div>
 
 	<c:if test="${sessionScope.role eq 'admin'}">
 		<div class="first-view-button">
 			<input type="hidden" name="command" value="do_delete_news" /> 
-			<input type="submit" value="Delete" />
+			<input type="submit" value="${delete}" />
 	</div>
 	</c:if>	
 </form>

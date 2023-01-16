@@ -1,9 +1,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>
 
-guest info
+${guest_info}
 
 <div class="body-title">
-	<a href="">News >> </a> Latest News
+	<a href=""> ${news_} </a> ${latest_news}
 </div>
 
 <form action="command.do?method=delete" method="post">
@@ -27,7 +29,7 @@ guest info
 
 	<div class="no-news">
 		<c:if test="${requestScope.news eq null}">
-        No news.
+        ${no_news}
 	</c:if>
 	</div>
 
