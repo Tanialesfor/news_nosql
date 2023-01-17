@@ -1,7 +1,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>
 
 <div class="body-title">
-	<a href="controller?command=go_to_news_list">News >> </a> Add News
+	<a href="controller?command=go_to_news_list"> ${news_} </a> ${add_news_b}
 </div>
 
 <div class="add-table-margin">
@@ -9,7 +11,7 @@
 			
 	<table class="news_text_format">
 		<tr>
-			<td class="space_around_title_text">News Title</td>
+			<td class="space_around_title_text">${news_title}</td>
 			<td class="space_around_view_text">
 			<div class="word-breaker">
 				 <input type="text" name="title" value="${requestScope.news.title }" > 
@@ -17,7 +19,7 @@
 			
 		</tr>
 		<tr>
-			<td class="space_around_title_text">News Date</td>
+			<td class="space_around_title_text">${news_date}</td>
 			<td class="space_around_view_text">
 			<div class="word-breaker">
 				<input type="text" name="date" value="${requestScope.news.newsDate }">
@@ -25,7 +27,7 @@
 				
 		</tr>
 		<tr>
-			<td class="space_around_title_text">Brief</td>
+			<td class="space_around_title_text">${brief}</td>
 			<td class="space_around_view_text">
 			<div class="word-area-breaker">
 			
@@ -36,7 +38,7 @@
 			
 		</tr>
 		<tr>
-			<td class="space_around_title_text">Content</td>
+			<td class="space_around_title_text">${content}</td>
 			<td class="space_around_view_text">
 			<div class="word-area-breaker">
 			
@@ -50,8 +52,8 @@
 	<c:if test="${sessionScope.role eq 'admin'}">
 	<div class="first-view-button">
 			<input type="hidden" name="command" value="do_add_news" /> 
-			<input type="hidden" name="id" value="${news.idNews}" /> 
-			<input type="submit" value="Save" />
+			<input type="hidden" name="id" value="${requestScope.news.idNews}" /> 
+			<input type="submit" value="${save}" />
 		</div>
 	</c:if>
 	</form>
@@ -59,8 +61,8 @@
 	<div class="second-view-button">
 		<form action="controller" method="post">
 			<input type="hidden" name="command" value="go_to_news_list" /> 
-			<input type="hidden" name="id" value="${news.idNews}" /> 
-			<input type="submit" value="Cancel" />
+			<input type="hidden" name="id" value="${requestScope.news.idNews}" /> 
+			<input type="submit" value="${cancel}" />
 		</form>
 	</div>
 	

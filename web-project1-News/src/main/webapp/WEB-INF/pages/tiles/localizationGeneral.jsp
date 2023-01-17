@@ -44,8 +44,12 @@
 
 <fmt:message bundle="${loc}" key="local.addNews.add_news" var="add_news_b"/>
 
+<fmt:message bundle="${loc}" key="local.editNews.edit_news" var="edit_news_b"/>
+
 <fmt:message bundle="${loc}" key="local.guestInfo.guest_info" var="guest_info"/>
 <fmt:message bundle="${loc}" key="local.guestInfo.latest_news" var="latest_news"/>
 
+<fmt:message bundle="${loc}" key="local.error.submit.back_to_first_page" var="back"/>
+<fmt:message bundle="${loc}" key="local.error.text" var="error_text"/>
 
 <fmt:message bundle="${loc}" key="local.footer" var="footer"/>
