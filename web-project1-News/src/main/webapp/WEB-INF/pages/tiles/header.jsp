@@ -28,7 +28,7 @@
 						</font> 
 					</c:if>
 					
-					<a href=""> ${registration} </a> <input type="submit" value="${sign_In}" /><br />
+					<a href="controller?command=go_to_registration_page"> ${registration} </a> <input type="submit" value="${sign_In}" /><br />
 				</form>
 			</div>
 

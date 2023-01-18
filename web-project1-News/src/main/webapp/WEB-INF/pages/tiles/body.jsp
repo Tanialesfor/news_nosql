@@ -16,3 +16,4 @@
 <c:if test="${requestScope.presentation eq 'editNews' }">
 	<c:import url="/WEB-INF/pages/tiles/editNews.jsp" />
 </c:if>
+

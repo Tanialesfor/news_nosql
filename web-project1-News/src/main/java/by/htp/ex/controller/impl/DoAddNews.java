@@ -24,7 +24,7 @@ public class DoAddNews implements Command {
         int newsId = Integer.parseInt(request.getParameter(NEWS_ID));
         
         News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"), request.getParameter("content"), request.getParameter("date"));
-//        News news = new News(newsId, "title", "brief", "content", "date");        
+      
         
     	try {
     		service.add(news);            	
