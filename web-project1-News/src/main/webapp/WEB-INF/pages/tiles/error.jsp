@@ -11,6 +11,12 @@
 </head>
 <body>
 <h1> ${error_text}</h1>
+
+<c:if test="${not (requestScope.AuthenticationError eq null)}">
+		<font color="red"> 
+			<c:out value="${requestScope.AuthenticationError}" />
+		</font> 
+</c:if>
 <form action="controller?command=go_to_base_page" method="post">
 	<input type="submit" value="${back}" />
 </form>

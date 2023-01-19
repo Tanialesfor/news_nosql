@@ -19,7 +19,7 @@ import by.htp.ex.controller.impl.GoToViewNews;
 
 public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
-	
+
 	public CommandProvider() {
 		commands.put(CommandName.GO_TO_BASE_PAGE, new GoToBasePage());
 		commands.put(CommandName.GO_TO_REGISTRATION_PAGE, new GoToRegistrationPage());
@@ -35,12 +35,17 @@ public class CommandProvider {
 		commands.put(CommandName.GO_TO_EDIT_NEWS, new GoToEditNews());
 		commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
 	}
-	
-	
+
 	public Command getCommand(String name) {
-		CommandName  commandName = CommandName.valueOf(name.toUpperCase());
-		Command command = commands.get(commandName);
-		return command;
+		Command command;
+		try {
+			CommandName commandName = CommandName.valueOf(name.toUpperCase());
+			command = commands.get(commandName);
+			return command;
+		} catch (RuntimeException e) {
+			command = commands.get(CommandName.GO_TO_ERROR_PAGE);
+			return command;
+		}
 	}
 
 }

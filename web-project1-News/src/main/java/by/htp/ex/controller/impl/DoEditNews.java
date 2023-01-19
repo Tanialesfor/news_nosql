@@ -15,7 +15,7 @@ public class DoEditNews implements Command {
 	
 	private final INewsService service = ServiceProvider.getInstance().getNewsService();
 
-	private static final String NEWS_ID = "id";	
+	private static final String JSP_NEWS_ID = "id";	
 
 	public DoEditNews() {
 		// TODO Auto-generated constructor stub
@@ -24,7 +24,7 @@ public class DoEditNews implements Command {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int newsId = Integer.parseInt(request.getParameter(NEWS_ID));
+        int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
         
         News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"), request.getParameter("content"), request.getParameter("date"));
         

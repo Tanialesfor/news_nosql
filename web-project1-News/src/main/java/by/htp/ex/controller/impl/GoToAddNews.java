@@ -28,21 +28,9 @@ public class GoToAddNews implements Command {
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			response.sendRedirect("controller?command=go_to_error_page");
+						response.sendRedirect("controller?command=go_to_error_page");
 			e.printStackTrace();
 		}
 	}
 	
-//	try {
-//        id = newsService.list().size() + 1;
-//        News news = new News(id, "", "", "", "");
-//        request.setAttribute("news", news);
-//        request.setAttribute(PRESENTATION, "addNews");
-//        request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
-//    } catch (ServiceException e) {
-//
-//        session.setAttribute(ERROR_MESSAGE,"cannot get the list of news");
-//        response.sendRedirect("controller?command=go_to_error_page");
-//    }
 }

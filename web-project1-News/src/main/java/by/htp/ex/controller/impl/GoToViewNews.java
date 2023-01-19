@@ -16,13 +16,14 @@ public class GoToViewNews implements Command {
 	
 	private final INewsService newsService = ServiceProvider.getInstance().getNewsService();
 	
+	private static final String JSP_NEWS_ID = "id";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		News news;
 		
 		String id;
 
-		id = request.getParameter("id");
+		id = request.getParameter(JSP_NEWS_ID);
 		
 		try {
 			news  = newsService.findById(Integer.parseInt(id));

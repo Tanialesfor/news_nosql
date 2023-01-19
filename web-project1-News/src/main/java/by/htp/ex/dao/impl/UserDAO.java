@@ -8,29 +8,55 @@ import java.util.Random;
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.bean.Role;
 import by.htp.ex.dao.DaoException;
+import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 
 public class UserDAO implements IUserDAO{
-
-     List<NewUserInfo> userArray = new ArrayList<NewUserInfo>();
-     {
-    	userArray.add(new NewUserInfo ("Roman", "roman.2000@gmail.com","roman2000", "1112000"));
-    	userArray.add(new NewUserInfo ("Anet", "anet.1990@gmail.com","anet1990", "2221990"));
-    	userArray.add(new NewUserInfo ("Vlad", "vlad.1995@gmail.com","vlad", "3331995"));
-    	userArray.add(new NewUserInfo ("Kate", "kate.1992@gmail.com","kate1992", "4441992"));
-     }  
+	
+    List<Role> roleArray = new ArrayList<Role>();
+    {
+    	roleArray.add(new Role ("admin", true));
+    	roleArray.add(new Role ("user", false));
+    }	
      
-     List<NewUserInfo> userArrayFull = new ArrayList<NewUserInfo>();
-     {
-    	userArrayFull.add(new NewUserInfo ("Roman", "roman.2000@gmail.com","roman2000", "1112000", new Role("admin",true)));
-    	userArrayFull.add(new NewUserInfo ("Anet", "anet.1990@gmail.com","anet1990", "2221990", new Role("admin",false)));
-    	userArrayFull.add(new NewUserInfo ("Vlad", "vlad.1995@gmail.com","vlad", "3331995", new Role("admin",false)));
-    	userArrayFull.add(new NewUserInfo ("Kate", "kate.1992@gmail.com","kate1992", "4441992", new Role("admin",false)));
-     }  
+	public Role getRole(String nameOfRole) {
+		for (Role element : roleArray) {
+			if (element.getNameofRole().equals(nameOfRole)) {
+				return element;
+			}			
+		}
+		return null;
+	}
     
-     @Override
+	public boolean isAdmin(Role role) {
+		if (role.getAdminProperty()==true) {
+			return true;
+		} else {
+			return false;
+		}
+	} 
+	
+    List<NewUserInfo> userArray = new ArrayList<NewUserInfo>();
+	{
+		userArray.add(new NewUserInfo ("Roman", "roman.2000@gmail.com","roman2000", "1112000", getRole("admin")));
+		userArray.add(new NewUserInfo ("Anet", "anet.1990@gmail.com","anet1990", "2221990", getRole("user")));
+		userArray.add(new NewUserInfo ("Vlad", "vlad.1995@gmail.com","vlad", "3331995", getRole("user")));
+		userArray.add(new NewUserInfo ("Kate", "kate.1992@gmail.com","kate1992", "4441992", getRole("user")));
+		userArray.add(new NewUserInfo ("Ula", "ula.1999@gmail.com","ula1999", "5551999", getRole("user")));
+	 }  
+
+	public NewUserInfo getUser(String login) {
+		for (NewUserInfo element : userArray) {
+			if (element.getLogin().equals(login)) {
+				return element;
+			}			
+		}
+		return null;		
+	}
+	
+    @Override
  	public boolean logination(String login, String password) throws DaoException {
- 		// TODO Auto-generated method stub
+ 		// TODO Auto-generated method 
     	 /*
  		 * Random rand = new Random(); int value = rand.nextInt(1000);
  		 * 
@@ -39,18 +65,33 @@ public class UserDAO implements IUserDAO{
  		 * 0) { return true; }else { return false; }
  		 */
 //    	 if (userArray.stream().filter(user -> user.getLogin().equals(login)&&user.getPassword().equals(password).))
-    	 
- 		return true;
+ 		for (NewUserInfo element : userArray) {
+			if (element.getLogin().equals(login)==true) {
+				if (element.getPassword().equals(password)==true) {
+					return true;
+				}
+			}			
+		}    	 
+    	return false;
  	}
      
      	
-	public String getRole(String login, String password) {
-		return "admin";
+	public String getRole(String login, String password) throws DaoException {
+			if (logination(login, password)==true) {
+				return getUser(login).getRole().getNameofRole();
+			}			
+			
+		return "guest";
 	}
 
 	@Override
 	public boolean registration(NewUserInfo user) throws DaoException  {
-		// TODO Auto-generated method stub
+				
+		if (logination(user.getLogin(), user.getPassword())==false) {
+			user.setRole(getRole("user"));
+			userArray.add(user);
+			return true;
+		}
 		return false;
 	}
 

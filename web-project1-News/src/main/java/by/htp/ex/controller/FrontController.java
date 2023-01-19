@@ -14,25 +14,22 @@ public class FrontController extends HttpServlet {
 	private final CommandProvider provider = new CommandProvider();
        
 
-    public FrontController() {
-        super();
-    }
-
-
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		functionCommand(request, response);
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		functionCommand(request, response);
 	}
 	
 	private void functionCommand (HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String commandName = request.getParameter("command");
-
-		Command command = provider.getCommand(commandName);
-		command.execute(request, response);
+		try {
+			String commandName = request.getParameter("command");
+			Command command = provider.getCommand(commandName);
+			command.execute(request, response);
+		} catch (Exception e) {
+			response.sendRedirect("controller?command=go_to_error_page");
+		}
 	}
 
 }

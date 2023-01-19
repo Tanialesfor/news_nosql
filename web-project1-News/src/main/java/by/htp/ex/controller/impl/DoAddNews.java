@@ -15,13 +15,13 @@ public class DoAddNews implements Command {
 		
 	private final INewsService service = ServiceProvider.getInstance().getNewsService();
 
-	private static final String NEWS_ID = "id";		
+	private static final String JSP_NEWS_ID = "id";		
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-        int newsId = Integer.parseInt(request.getParameter(NEWS_ID));
+        int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
         
         News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"), request.getParameter("content"), request.getParameter("date"));
       

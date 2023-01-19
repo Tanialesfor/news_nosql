@@ -26,17 +26,22 @@ public class UserServiceImpl implements IUserService{
 			}else {
 				return "guest";
 			}
-			
-		}catch(DaoException e) {
+		} catch(DaoException e) {
 			throw new ServiceException(e);
 		}
 		
 	}
 
 	@Override
-	public boolean registration(NewUserInfo user) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean registration(NewUserInfo user) throws ServiceException {
+		try {
+			if (userDAO.registration(user)) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
 	}
-
 }

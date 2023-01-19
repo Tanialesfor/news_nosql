@@ -8,14 +8,14 @@ public class Role implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String nameofRole;
-	private boolean adminProperte;
+	private boolean adminProperty;
 		
 	public Role(){}
 
-	public Role(String nameofRole, boolean adminProperte) {
+	public Role(String nameofRole, boolean adminProperty) {
 		super();
 		this.nameofRole = nameofRole;
-		this.adminProperte=adminProperte;
+		this.adminProperty=adminProperty;
 	}
 
 	public String getNameofRole() {
@@ -26,9 +26,17 @@ public class Role implements Serializable {
 		this.nameofRole = nameofRole;
 	}
 
+	public boolean getAdminProperty() {
+		return adminProperty;
+	}
+
+	public void setAdminProperty(boolean adminProperty) {
+		this.adminProperty = adminProperty;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(nameofRole);
+		return Objects.hash(adminProperty, nameofRole);
 	}
 
 	@Override
@@ -40,13 +48,12 @@ public class Role implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Role other = (Role) obj;
-		return Objects.equals(nameofRole, other.nameofRole);
+		return adminProperty == other.adminProperty && Objects.equals(nameofRole, other.nameofRole);
 	}
 
 	@Override
 	public String toString() {
-		return "Role [nameofRole=" + nameofRole + "]";
+		return "Role [nameofRole=" + nameofRole + ", adminProperty=" + adminProperty + "]";
 	}
 
-	
 }
