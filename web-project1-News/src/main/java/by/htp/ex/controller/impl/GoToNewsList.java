@@ -23,6 +23,7 @@ public class GoToNewsList implements Command {
 			newsList = newsService.list();
 			request.setAttribute("news", newsList);
 			request.setAttribute("presentation", "newsList");
+			
 			//request.setAttribute("news", null);
 
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);

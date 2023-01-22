@@ -64,7 +64,7 @@ public class UserDAO implements IUserDAO{
  		 * }catch(SQLException e) { throw new DaoException(e); } }else if (value % 2 ==
  		 * 0) { return true; }else { return false; }
  		 */
-//    	 if (userArray.stream().filter(user -> user.getLogin().equals(login)&&user.getPassword().equals(password).))
+
  		for (NewUserInfo element : userArray) {
 			if (element.getLogin().equals(login)==true) {
 				if (element.getPassword().equals(password)==true) {
@@ -79,14 +79,19 @@ public class UserDAO implements IUserDAO{
 	public String getRole(String login, String password) throws DaoException {
 			if (logination(login, password)==true) {
 				return getUser(login).getRole().getNameofRole();
-			}			
-			
+			}						
 		return "guest";
 	}
+	
+	public boolean isAdmin(String login, String password) throws DaoException {
+		if (logination(login, password)==true) {
+			return getUser(login).getRole().getAdminProperty();
+		}						
+	return false;
+	}	
 
 	@Override
-	public boolean registration(NewUserInfo user) throws DaoException  {
-				
+	public boolean registration(NewUserInfo user) throws DaoException  {				
 		if (logination(user.getLogin(), user.getPassword())==false) {
 			user.setRole(getRole("user"));
 			userArray.add(user);

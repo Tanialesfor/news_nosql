@@ -5,21 +5,22 @@ import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 import by.htp.ex.service.ServiceException;
+import by.htp.ex.util.validation.UserDataValidation;
+import by.htp.ex.util.validation.ValidationProvider;
 import by.htp.ex.service.IUserService;
 
 public class UserServiceImpl implements IUserService{
 
 	private final IUserDAO userDAO = DaoProvider.getInstance().getUserDao();
-//	private final UserDataValidation userDataValidation = ValidationProvider.getIntsance().getUserDataVelidation();
+    private final UserDataValidation userDataValidation = ValidationProvider.getInstance().getUserDataValidation();
+    
 	
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
-		
-		/*
-		 * if(!userDataValidation.checkAUthData(login, password)) { throw new
-		 * ServiceException("login ...... "); }
-		 */
-		
+				
+		  if(!userDataValidation.checkAUthData(login, password)) { 
+			  throw new ServiceException("login or password invalid"); }
+		 		
 		try {
 			if(userDAO.logination(login, password)) {
 				return userDAO.getRole(login, password);
@@ -34,6 +35,12 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public boolean registration(NewUserInfo user) throws ServiceException {
+		String email=user.getEmail();
+		String login=user.getLogin();
+		String password=user.getPassword();
+		
+		if (!userDataValidation.checkRegData(login, password, email)) {
+			throw new ServiceException("login or password or email invalid");}
 		try {
 			if (userDAO.registration(user)) {
 				return true;
@@ -43,5 +50,18 @@ public class UserServiceImpl implements IUserService{
 		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
+	}
+
+	@Override
+	public boolean isAdmin(String login, String password) throws ServiceException {
+
+		try {
+			if (userDAO.isAdmin(login, password)==true) {
+				return true;
+			}
+		} catch (DaoException e) {
+			throw new ServiceException(e);
+		}
+		return false;
 	}
 }

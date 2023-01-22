@@ -27,8 +27,16 @@
 						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
 					</c:if>
-					
-					<a href="controller?command=go_to_registration_page"> ${registration} </a> <input type="submit" value="${sign_In}" /><br />
+												
+								
+					<c:if test="${not (requestScope.autherMessage eq null)}">
+						<font color="blue"> 
+						   <c:out value="${requestScope.autherMessage}" />
+						</font> 
+					</c:if>
+									
+					<a href="controller?command=go_to_registration_page"> ${registration} </a> 
+					<input type="submit" value="${sign_In}" /><br />
 				</form>
 			</div>
 

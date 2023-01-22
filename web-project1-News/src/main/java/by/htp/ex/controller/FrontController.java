@@ -28,7 +28,8 @@ public class FrontController extends HttpServlet {
 			Command command = provider.getCommand(commandName);
 			command.execute(request, response);
 		} catch (Exception e) {
-			response.sendRedirect("controller?command=go_to_error_page");
+		response.sendRedirect("controller?command=go_to_error_page");
+			//request.getRequestDispatcher("controller?command=go_to_error_page").forward(request, response);			
 		}
 	}
 

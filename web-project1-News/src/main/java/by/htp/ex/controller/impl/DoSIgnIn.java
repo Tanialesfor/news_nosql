@@ -18,6 +18,7 @@ public class DoSIgnIn implements Command {
 	private static final String JSP_LOGIN_PARAM = "login";
 	private static final String JSP_PASSWORD_PARAM = "password";
 	private static final String AUTHER_ERROR = "AuthenticationError";
+	private static final String ERROR_MESSAGE = "errorMessage";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,16 +27,15 @@ public class DoSIgnIn implements Command {
 
 		login = request.getParameter(JSP_LOGIN_PARAM);
 		password = request.getParameter(JSP_PASSWORD_PARAM);
-
-		// small validation
-
+		
 		try {
 
 			String role = service.signIn(login, password);
 
 			if (!role.equals("guest")) {
 				request.getSession(true).setAttribute("user", "active");
-				request.getSession(true).setAttribute("role", role);
+				request.getSession().setAttribute("role", role);
+				request.getSession().setAttribute("isAdminRole", service.isAdmin(login,password));
 				response.sendRedirect("controller?command=go_to_news_list");
 			} else {
 				request.getSession(true).setAttribute("user", "not active");
@@ -44,8 +44,8 @@ public class DoSIgnIn implements Command {
 			}
 			
 		} catch (ServiceException e) {
-			// logging e
-			// go-to error page
+			request.getSession().setAttribute(ERROR_MESSAGE, "sign in error");
+			response.sendRedirect("controller?command=go_to_error_page");
 
 		}
 

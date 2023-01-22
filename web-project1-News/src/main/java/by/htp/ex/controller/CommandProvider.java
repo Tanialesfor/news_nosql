@@ -2,6 +2,7 @@ package by.htp.ex.controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 import by.htp.ex.controller.impl.DoAddNews;
 import by.htp.ex.controller.impl.DoDeleteNews;
@@ -16,6 +17,7 @@ import by.htp.ex.controller.impl.GoToErrorPage;
 import by.htp.ex.controller.impl.GoToNewsList;
 import by.htp.ex.controller.impl.GoToRegistrationPage;
 import by.htp.ex.controller.impl.GoToViewNews;
+import by.htp.ex.controller.impl.NoSuchCommand;
 
 public class CommandProvider {
 	private Map<CommandName, Command> commands = new HashMap<>();
@@ -34,6 +36,7 @@ public class CommandProvider {
 		commands.put(CommandName.GO_TO_ADD_NEWS, new GoToAddNews());
 		commands.put(CommandName.GO_TO_EDIT_NEWS, new GoToEditNews());
 		commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
+		commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
 	}
 
 	public Command getCommand(String name) {
@@ -42,9 +45,8 @@ public class CommandProvider {
 			CommandName commandName = CommandName.valueOf(name.toUpperCase());
 			command = commands.get(commandName);
 			return command;
-		} catch (RuntimeException e) {
-			command = commands.get(CommandName.GO_TO_ERROR_PAGE);
-			return command;
+		} catch (NoSuchElementException e) {			
+			return commands.get(CommandName.NO_SUCH_COMMAND);
 		}
 	}
 

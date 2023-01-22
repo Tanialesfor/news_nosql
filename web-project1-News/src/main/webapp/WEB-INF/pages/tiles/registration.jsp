@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="body-title">
-	<h1>News management</h1>
-	<h3>Registration page </h3>
+	<h2>Registration page </h2>
+	<h3>To fill in the empty fields, please: </h3>
 </div>
 
 <div class="add-table-margin">
@@ -47,19 +47,18 @@
 	
 	
 	<div class="first-view-button">
-
 		<input type="hidden" name="command" value="do_registration" /> 
 		<input type="submit" value="Registration" />
-	
-</div>
-	</form> 
+	</div>
+
+</form> 
 	
 	<div class="second-view-button">
 	<form action="controller" method="post">
 		<input type="hidden" name="command" value="do_sign_out" /> 
 		<input type="submit" value="Cancel" />
 	</form>
-</div>
+ </div>   
 
 </div>
 

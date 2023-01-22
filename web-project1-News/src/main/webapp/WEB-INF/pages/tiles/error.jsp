@@ -12,14 +12,19 @@
 <body>
 <h1> ${error_text}</h1>
 
-<c:if test="${not (requestScope.AuthenticationError eq null)}">
+<c:if test="${not (sessionScope.errorMessage eq null)}">
 		<font color="red"> 
-			<c:out value="${requestScope.AuthenticationError}" />
+			<c:out value="${sessionScope.errorMessage}" />
 		</font> 
 </c:if>
-<form action="controller?command=go_to_base_page" method="post">
+
+<a href="controller?command=go_to_base_page">  </a> 
+					<input type="submit" value="${back}" /><br />
+
+<!--  <form action="controller?command=go_to_base_page" method="post">
 	<input type="submit" value="${back}" />
-</form>
+</form>-->
+
 </body>
 </html>
 

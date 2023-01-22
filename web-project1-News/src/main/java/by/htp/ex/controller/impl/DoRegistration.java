@@ -19,7 +19,8 @@ public class DoRegistration implements Command {
 	private static final String JSP_EMAIL_PARAM = "email";
 	private static final String JSP_LOGIN_PARAM = "login";
 	private static final String JSP_PASSWORD_PARAM = "password";
-	private static final String AUTHER_ERROR = "AuthenticationError";
+	private static final String ERROR_MESSAGE = "errorMessage";
+	private static final String AUTHER_MESSAGE = "autherMessage";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,10 +39,10 @@ public class DoRegistration implements Command {
 		try {
     		service.registration(user);   
        	} catch (ServiceException e) {
-    		request.setAttribute(AUTHER_ERROR, "registration error");
+   		    request.getSession(true).setAttribute(ERROR_MESSAGE, "registration error");
     		response.sendRedirect("controller?command=go_to_error_page");
     	}
-		    request.setAttribute(AUTHER_ERROR, "registration completed successfully");
+		    request.getSession(true).setAttribute(AUTHER_MESSAGE, "registration completed successfully");
 		    response.sendRedirect("controller?command=go_to_news_list");
 	}
 }
