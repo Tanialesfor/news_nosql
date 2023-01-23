@@ -13,9 +13,20 @@
 		<servlet-name>Controller</servlet-name>
 		<servlet-class>by.htp.ex.controller.FrontController</servlet-class>
 	</servlet>
+  	<servlet>
+  		<description>
+  		</description>
+  		<display-name>SecurityController</display-name>
+  		<servlet-name>SecurityController</servlet-name>
+  		<servlet-class>by.htp.ex.controller.impl.securityController.SecurityController</servlet-class>
+  	</servlet>
 	
 	<servlet-mapping>
 		<servlet-name>Controller</servlet-name>
 		<url-pattern>/controller</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>SecurityController</servlet-name>
+		<url-pattern>/SecurityController</url-pattern>
 	</servlet-mapping>
 </web-app>

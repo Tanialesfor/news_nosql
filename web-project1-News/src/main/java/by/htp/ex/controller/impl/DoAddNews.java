@@ -4,21 +4,19 @@ import java.io.IOException;
 
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
+import by.htp.ex.controller.impl.securityController.SecurityController;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
-import by.htp.ex.util.validation.UserSecurityValidation;
-import by.htp.ex.util.validation.ValidationProvider;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
+
 public class DoAddNews implements Command {
 
 	private final INewsService service = ServiceProvider.getInstance().getNewsService();
-	private final UserSecurityValidation userSecurityValidation = ValidationProvider.getInstance()
-			.getUserSecurityValidation();
 
 	private static final String JSP_NEWS_ID = "id";
 	private static final String AUTHER_MESSAGE = "autherMessage";
@@ -28,8 +26,8 @@ public class DoAddNews implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = (HttpSession) request.getSession();
 
-		if (userSecurityValidation.isAdminRole(session) == true) {
-			int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
+			if(SecurityController.isAdminRole(session)==true) {
+		    int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
 			News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"),
 					request.getParameter("content"), request.getParameter("date"));
 
