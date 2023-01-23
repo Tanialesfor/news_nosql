@@ -37,7 +37,6 @@
 		</c:if>
 		
 		<c:if test="${sessionScope.user eq 'active'}">
-
            <c:if test="${not (requestScope.autherMessage eq null)}">
 						<font color="blue"> 
 						   <c:out value="${requestScope.autherMessage}" />

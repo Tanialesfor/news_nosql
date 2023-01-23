@@ -21,3 +21,4 @@
 	<c:import url="/WEB-INF/pages/tiles/registration.jsp" />
 </c:if>
 
+

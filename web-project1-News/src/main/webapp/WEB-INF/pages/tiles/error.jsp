@@ -19,7 +19,8 @@
 </c:if>
 
 <a href="controller?command=go_to_base_page">  </a> 
-					<input type="submit" value="${back}" /><br />
+	<input type="submit" value="${back}" />
+	
 
 <!--  <form action="controller?command=go_to_base_page" method="post">
 	<input type="submit" value="${back}" />

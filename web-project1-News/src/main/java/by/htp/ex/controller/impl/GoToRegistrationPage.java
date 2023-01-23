@@ -19,15 +19,14 @@ public class GoToRegistrationPage implements Command {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		HttpSession session = request.getSession(false);
+
 		
 		try {
 			request.setAttribute(PRESENTATION, "registration");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (IOException e) {
-			request.getSession().setAttribute(ERROR_MESSAGE, "error message from registratoin");
+			request.getSession(true).setAttribute(ERROR_MESSAGE, e.getMessage());
 			response.sendRedirect("controller?command=go_to_error_page");
-			e.printStackTrace();
 		}
 	}
 

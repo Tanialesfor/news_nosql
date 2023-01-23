@@ -21,9 +21,11 @@ public class GoToErrorPage implements Command {
         if (messageOfError != null) {
         	request.getSession(true).setAttribute(ERROR_MESSAGE, messageOfError);
         }
-        request.getRequestDispatcher("WEB-INF/pages/tiles/error.jsp").forward(request, response);
-//        request.setAttribute(PRESENTATION, "error");
-//        request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
-	}
+           request.getRequestDispatcher("WEB-INF/pages/tiles/error.jsp").forward(request, response);
+        
+        // request.setAttribute(PRESENTATION, "error");
+        // request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
+           
+      }
 }
 

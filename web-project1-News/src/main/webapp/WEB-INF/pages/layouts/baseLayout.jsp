@@ -29,29 +29,31 @@
 
 				<c:if test="${not (sessionScope.user eq 'active')}">
 				    ${welcom}
-					<%-- <c:import url=""></c:import> --%>
 				</c:if>
+				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
 				</c:if>
 		</div>
 
 		<div class="content">
-
-            				
-				<c:if test="${sessionScope.user eq 'active'}">
+                
+                 <c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
-				</c:if>
-				
-				<c:if test="${not (sessionScope.user eq 'active')}">
-					<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
-				</c:if>
-				
-				<c:if test="${(requestScope.presentation eq 'registration')}">
+				 </c:if>
+            		
+            <c:if test="${not (sessionScope.user eq 'active')}">
+										
+					<c:if test="${(requestScope.presentation eq 'registration')}">
 						<c:import url="/WEB-INF/pages/tiles/registration.jsp" />
 					</c:if>
-						
-				
+					
+					<c:if test="${not (requestScope.presentation eq 'registration')}">
+						<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
+					</c:if>
+														
+			</c:if>		
+								
 			</div>
 		</div>
 
