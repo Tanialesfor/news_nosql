@@ -18,6 +18,10 @@ public class DoEditNews implements Command {
 	private final INewsService service = ServiceProvider.getInstance().getNewsService();
 	
 	private static final String JSP_NEWS_ID = "id";	
+	private static final String JSP_TITLE = "title";
+	private static final String JSP_BRIEF = "brief";
+	private static final String JSP_CONTENT = "content";
+	private static final String JSP_DATE = "date";
 	private static final String AUTHER_MESSAGE = "autherMessage";
 	private static final String ERROR_MESSAGE = "errorMessage";
 
@@ -27,7 +31,12 @@ public class DoEditNews implements Command {
         
 		if(SecurityController.isAdminRole(session)==true) {
 		int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
-        News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"), request.getParameter("content"), request.getParameter("date"));
+		String title=request.getParameter(JSP_TITLE);
+	    String brief=request.getParameter(JSP_BRIEF);
+	    String content=request.getParameter(JSP_CONTENT);
+	    String date=request.getParameter(JSP_DATE);
+        
+	    News news = new News(newsId, title, brief, content, date);
         
     	try {
     		service.update(news);            	
@@ -35,7 +44,7 @@ public class DoEditNews implements Command {
     		session.setAttribute(ERROR_MESSAGE,"command update error");
     		response.sendRedirect("controller?command=go_to_error_page");
     	}
-    	    request.setAttribute(AUTHER_MESSAGE, "news edited successfully");
+    	    session.setAttribute(AUTHER_MESSAGE, "news edited successfully");
     	    response.sendRedirect("controller?command=go_to_news_list");
 		}else {
 			session.setAttribute(ERROR_MESSAGE, "user does not have permission to edit");

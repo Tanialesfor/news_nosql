@@ -35,7 +35,7 @@ public class DoDeleteNews implements Command {
              		response.sendRedirect("controller?command=go_to_error_page");
              		
             	}
-            	request.setAttribute(AUTHER_MESSAGE, "news successfully deleted");   	
+            	session.setAttribute(AUTHER_MESSAGE, "news successfully deleted");   	
             	response.sendRedirect("controller?command=go_to_news_list");
             } else {
                 session.setAttribute(ERROR_MESSAGE,"news do not selected for deletion");

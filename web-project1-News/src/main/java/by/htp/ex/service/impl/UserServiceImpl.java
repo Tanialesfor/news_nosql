@@ -42,7 +42,7 @@ public class UserServiceImpl implements IUserService{
 		String password=user.getPassword();
 		
 		if (!userDataValidation.checkRegData(name, login, password, email)) {
-			throw new ServiceException("login or password or email invalid");}
+			throw new ServiceException("input field invalid");}
 		try {
 			if (userDAO.registration(user)) {
 				return true;

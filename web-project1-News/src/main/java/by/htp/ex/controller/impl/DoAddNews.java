@@ -19,6 +19,11 @@ public class DoAddNews implements Command {
 	private final INewsService service = ServiceProvider.getInstance().getNewsService();
 
 	private static final String JSP_NEWS_ID = "id";
+	private static final String JSP_TITLE = "title";
+	private static final String JSP_BRIEF = "brief";
+	private static final String JSP_CONTENT = "content";
+	private static final String JSP_DATE = "date";
+	
 	private static final String AUTHER_MESSAGE = "autherMessage";
 	private static final String ERROR_MESSAGE = "errorMessage";
 
@@ -28,19 +33,25 @@ public class DoAddNews implements Command {
 
 			if(SecurityController.isAdminRole(session)==true) {
 		    int newsId = Integer.parseInt(request.getParameter(JSP_NEWS_ID));
-			News news = new News(newsId, request.getParameter("title"), request.getParameter("brief"),
-					request.getParameter("content"), request.getParameter("date"));
-
+		    String title=request.getParameter(JSP_TITLE);
+		    String brief=request.getParameter(JSP_BRIEF);
+		    String content=request.getParameter(JSP_CONTENT);
+		    String date=request.getParameter(JSP_DATE);
+		    
+      if(newsId!=0 & title!="" & brief!="" & content!="" & date!="") {
+			News news = new News(newsId, title, brief, content, date);
 			try {
 				service.add(news);
 			} catch (ServiceException e) {
 				session.setAttribute(ERROR_MESSAGE, "command add error");
 				response.sendRedirect("controller?command=go_to_error_page");
 			}
-			request.setAttribute(AUTHER_MESSAGE, "news added successfully");
+			session.setAttribute(AUTHER_MESSAGE, "news added successfully");
 			response.sendRedirect("controller?command=go_to_news_list");
-		
-			
+      } else {
+    	  session.setAttribute(ERROR_MESSAGE, "news fields are not filled");
+		  response.sendRedirect("controller?command=go_to_error_page");
+      }
 			} else {
 			session.setAttribute(ERROR_MESSAGE, "user does not have permission to add");
 			response.sendRedirect("controller?command=go_to_error_page");

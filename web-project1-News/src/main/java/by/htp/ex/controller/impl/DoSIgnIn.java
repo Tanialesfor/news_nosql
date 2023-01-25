@@ -44,10 +44,8 @@ public class DoSIgnIn implements Command {
 			}
 			
 		} catch (ServiceException e) {
-			request.getSession().setAttribute(ERROR_MESSAGE, "sign in error");
+			request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
 			response.sendRedirect("controller?command=go_to_error_page");
-		}
-
-		// response.getWriter().print("do logination");
+		}			
 	}
 }

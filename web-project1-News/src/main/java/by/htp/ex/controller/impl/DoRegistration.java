@@ -39,7 +39,7 @@ public class DoRegistration implements Command {
 		try {
     		service.registration(user);   
        	} catch (ServiceException e) {
-   		    request.getSession(true).setAttribute(ERROR_MESSAGE, "registration error");
+   		    request.getSession(true).setAttribute(ERROR_MESSAGE, e.getMessage());
     		response.sendRedirect("controller?command=go_to_error_page");
     	}
 		    request.getSession(true).setAttribute(AUTHER_MESSAGE, "registration completed successfully");
