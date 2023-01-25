@@ -1,4 +1,4 @@
-package by.htp.ex.controller.impl.securityController;
+package by.htp.ex.controller.impl.security;
 
 import jakarta.servlet.http.HttpSession;
 

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import by.htp.ex.bean.News;
 import by.htp.ex.controller.Command;
-import by.htp.ex.controller.impl.securityController.SecurityController;
+import by.htp.ex.controller.impl.security.SecurityController;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;
@@ -39,7 +39,9 @@ public class DoAddNews implements Command {
 			}
 			request.setAttribute(AUTHER_MESSAGE, "news added successfully");
 			response.sendRedirect("controller?command=go_to_news_list");
-		} else {
+		
+			
+			} else {
 			session.setAttribute(ERROR_MESSAGE, "user does not have permission to add");
 			response.sendRedirect("controller?command=go_to_error_page");
 		}

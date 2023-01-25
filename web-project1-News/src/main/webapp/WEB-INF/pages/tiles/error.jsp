@@ -1,32 +1,33 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>  
-    
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+   "http://www.w3.org/TR/html4/loose.dtd">
+
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<link rel="stylesheet" type="text/css" href="styles/newsStyle.css">
+
 </head>
 <body>
-<h1> ${error_text}</h1>
+<h1>${error_page}</h1>
+<h3> ${error_text} </h3>
 
 <c:if test="${not (sessionScope.errorMessage eq null)}">
-		<font color="red"> 
+		<font color="red" > 
 			<c:out value="${sessionScope.errorMessage}" />
 		</font> 
 </c:if>
 
-<a href="controller?command=go_to_base_page">  </a> 
-	<input type="submit" value="${back}" />
-	
-
-<!--  <form action="controller?command=go_to_base_page" method="post">
-	<input type="submit" value="${back}" />
-</form>-->
+<form action="controller" method="post">
+		<input type="hidden" name="command" value="go_to_base_page" /> 
+		<input type="submit" value="${back}" />
+	</form>
 
 </body>
 </html>
-
-

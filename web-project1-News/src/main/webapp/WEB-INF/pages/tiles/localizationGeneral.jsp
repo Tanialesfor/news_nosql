@@ -50,6 +50,7 @@
 <fmt:message bundle="${loc}" key="local.guestInfo.latest_news" var="latest_news"/>
 
 <fmt:message bundle="${loc}" key="local.error.submit.back_to_first_page" var="back"/>
+<fmt:message bundle="${loc}" key="local.error.page" var="error_page"/>
 <fmt:message bundle="${loc}" key="local.error.text" var="error_text"/>
 
 <fmt:message bundle="${loc}" key="local.footer" var="footer"/>

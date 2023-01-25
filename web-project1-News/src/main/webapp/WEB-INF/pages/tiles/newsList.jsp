@@ -3,9 +3,8 @@
 <%@ include file="/WEB-INF/pages/tiles/localizationGeneral.jsp" %>
 
 <div class="body-title">
-	<a href="">${news_} </a> ${news_list_b}
-	
-</div>
+	<a href="controller?command=go_to_news_list">${news_} </a> ${news_list_b}
+	</div>
 
 <form action="controller" method="post">
 	<c:forEach var="news" items="${requestScope.news}">
@@ -39,8 +38,8 @@
 		</div>
 
 	</c:forEach>
-	
-	
+	 
+	 	
 	<!-- 	<logic:notEmpty name="newsForm" property="newsList">
 		<div class="delete-button-position">
 			<html:submit>

@@ -19,8 +19,8 @@
 			<div align="right">
 				<form action="controller" method="post">
 					<input type="hidden" name="command" value="do_sign_in" /> 
-					${enter_login} <input type="text" name="login" value="" /><br /> 
-					${enter_password} <input type="password" name="password" value="" /><br />
+					${enter_login} <input type="text" name="login" value="" title="enter the number of latin characters from 1 to 10"/><br /> 
+					${enter_password} <input type="password" name="password" value="" title="enter the number of latin characters from 1 to 10"/><br />
 
 					<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
@@ -36,8 +36,9 @@
 
 		</c:if>
 		
+							
 		<c:if test="${sessionScope.user eq 'active'}">
-           <c:if test="${not (requestScope.autherMessage eq null)}">
+          <c:if test="${not (requestScope.autherMessage eq null)}">
 						<font color="blue"> 
 						   <c:out value="${requestScope.autherMessage}" />
 						</font> 

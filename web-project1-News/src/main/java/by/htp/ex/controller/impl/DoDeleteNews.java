@@ -2,7 +2,7 @@ package by.htp.ex.controller.impl;
 
 import java.io.IOException;
 import by.htp.ex.controller.Command;
-import by.htp.ex.controller.impl.securityController.SecurityController;
+import by.htp.ex.controller.impl.security.SecurityController;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.service.ServiceProvider;

@@ -14,18 +14,15 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class GoToRegistrationPage implements Command {
 
-	private static final String ERROR_MESSAGE = "errorMessage";
 	private static final String PRESENTATION = "presentation";
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		
 		try {
 			request.setAttribute(PRESENTATION, "registration");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (IOException e) {
-			request.getSession(true).setAttribute(ERROR_MESSAGE, e.getMessage());
 			response.sendRedirect("controller?command=go_to_error_page");
 		}
 	}
