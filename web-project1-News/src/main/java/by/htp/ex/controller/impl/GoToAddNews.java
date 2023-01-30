@@ -25,7 +25,6 @@ public class GoToAddNews implements Command {
 			news = new News(id, "", "", "", "");
 			request.setAttribute("news", news);
 			request.setAttribute("presentation", "addNews");
-
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 		} catch (ServiceException e) {
 			response.sendRedirect("controller?command=go_to_error_page");

@@ -16,6 +16,5 @@ public class NoSuchCommand implements Command {
 		
 		request.getSession().setAttribute(ERROR_MESSAGE, "no such command");
 		response.sendRedirect("controller?command=go_to_error_page");
-
 	}
 }

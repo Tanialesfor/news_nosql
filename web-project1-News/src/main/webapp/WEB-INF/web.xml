@@ -18,7 +18,7 @@
   		</description>
   		<display-name>SecurityController</display-name>
   		<servlet-name>SecurityController</servlet-name>
-  		<servlet-class>by.htp.ex.controller.impl.securityController.SecurityController</servlet-class>
+  		<servlet-class>by.htp.ex.controller.impl.security.SecurityController</servlet-class>
   	</servlet>
 	
 	<servlet-mapping>

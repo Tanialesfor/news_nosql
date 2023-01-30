@@ -16,6 +16,8 @@
 <fmt:message bundle="${loc}" key="local.general.news_date" var="news_date"/>
 <fmt:message bundle="${loc}" key="local.general.brief" var="brief"/>
 <fmt:message bundle="${loc}" key="local.general.content" var="content"/>
+<fmt:message bundle="${loc}" key="local.general.enter_login" var="login"/>
+<fmt:message bundle="${loc}" key="local.general.enter_password" var="password"/>
 <fmt:message bundle="${loc}" key="local.general.submit.delete" var="delete"/>
 <fmt:message bundle="${loc}" key="local.general.submit.save" var="save"/>
 <fmt:message bundle="${loc}" key="local.general.submit.cancel" var="cancel"/>
@@ -23,8 +25,6 @@
 <fmt:message bundle="${loc}" key="local.header.en" var="en_button"/>
 <fmt:message bundle="${loc}" key="local.header.ru" var="ru_button"/>
 <fmt:message bundle="${loc}" key="local.header.news_management" var="news_management"/>
-<fmt:message bundle="${loc}" key="local.header.enter_login" var="enter_login"/>
-<fmt:message bundle="${loc}" key="local.header.enter_password" var="enter_password"/>
 <fmt:message bundle="${loc}" key="local.header.submit.sign_In" var="sign_In"/>
 <fmt:message bundle="${loc}" key="local.header.submit.sign_Out" var="sign_Out"/>
 <fmt:message bundle="${loc}" key="local.header.registration" var="registration"/>
@@ -48,6 +48,12 @@
 
 <fmt:message bundle="${loc}" key="local.guestInfo.guest_info" var="guest_info"/>
 <fmt:message bundle="${loc}" key="local.guestInfo.latest_news" var="latest_news"/>
+
+<fmt:message bundle="${loc}" key="local.registration.page" var="registration_page"/>
+<fmt:message bundle="${loc}" key="local.registration.text" var="registration_text"/>
+<fmt:message bundle="${loc}" key="local.registration.enter_name" var="name"/>
+<fmt:message bundle="${loc}" key="local.registration.enter_email" var="email"/>
+<fmt:message bundle="${loc}" key="local.registration.submit.registration" var="registration_button"/>
 
 <fmt:message bundle="${loc}" key="local.error.submit.back_to_first_page" var="back"/>
 <fmt:message bundle="${loc}" key="local.error.page" var="error_page"/>

@@ -23,42 +23,30 @@
 		<div class="header">
 			<c:import url="/WEB-INF/pages/tiles/header.jsp" />
 		</div>
-
 		<div class="base-layout-wrapper">
 			<div class="menu">
-
 				<c:if test="${not (sessionScope.user eq 'active')}">
 				    ${welcom}
-				</c:if>
-				
+				</c:if>				
 				<c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/menu.jsp" />
 				</c:if>
-		</div>
-
-		<div class="content">
-                
+			</div>
+			<div class="content">               
                  <c:if test="${sessionScope.user eq 'active'}">
 					<c:import url="/WEB-INF/pages/tiles/body.jsp" />
-				 </c:if>
-            		
-            <c:if test="${not (sessionScope.user eq 'active')}">
-										
+				 </c:if>            		
+	            <c:if test="${not (sessionScope.user eq 'active')}">										
 					<c:if test="${(requestScope.presentation eq 'registration')}">
 						<c:import url="/WEB-INF/pages/tiles/registration.jsp" />
-					</c:if>
-					
+					</c:if>				
 					<c:if test="${not (requestScope.presentation eq 'registration')}">
 						<c:import url="/WEB-INF/pages/tiles/guestInfo.jsp" />
-					</c:if>
-														
-			</c:if>		
-								
+					</c:if>														
+				</c:if>										
 			</div>
 		</div>
-
 		<div class="footer">
-
 			<c:import url="/WEB-INF/pages/tiles/footer.jsp" />
 		</div>
 	</div>

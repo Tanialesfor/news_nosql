@@ -56,7 +56,6 @@ public class UserDAO implements IUserDAO{
 	
     @Override
  	public boolean logination(String login, String password) throws DaoException {
- 		// TODO Auto-generated method 
     	 /*
  		 * Random rand = new Random(); int value = rand.nextInt(1000);
  		 * 
@@ -75,6 +74,16 @@ public class UserDAO implements IUserDAO{
     	return false;
  	}
      
+	@Override
+	public boolean loginExist(String login) throws DaoException {
+ 		for (NewUserInfo element : userArray) {
+			if (element.getLogin().equals(login)==true) {
+				return true;
+			}			
+		}   		
+		return false;
+	}    
+    
      	
 	public String getRole(String login, String password) throws DaoException {
 			if (logination(login, password)==true) {
@@ -92,14 +101,11 @@ public class UserDAO implements IUserDAO{
 
 	@Override
 	public boolean registration(NewUserInfo user) throws DaoException  {				
-		if (logination(user.getLogin(), user.getPassword())==false) {
+		if (loginExist(user.getLogin())==false) {
 			user.setRole(getRole("user"));
 			userArray.add(user);
 			return true;
 		}
 		return false;
 	}
-
-	
-
 }

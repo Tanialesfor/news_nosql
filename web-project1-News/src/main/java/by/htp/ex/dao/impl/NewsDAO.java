@@ -49,16 +49,15 @@ public class NewsDAO implements INewsDAO {
 			}
 		}
 		if (indexDelete >= 0) {
-			result.remove(indexDelete);
+			result.set(indexDelete, news);
 		}
-//		result.removeIf(o -> o.getIdNews().equals(news.getIdNews()));
-		result.add(news);
+
 	}
 
 	@Override
 	public void deleteNewses(String[] idNewses) throws NewsDAOException {
 		int arrayNews[] = Arrays.stream(idNewses).mapToInt(Integer::parseInt).toArray();
-		for (int i = 0; i < result.size(); i++) {
+		for (int i = result.size()-1; i > -1 ; i--) {
 			News newsDelete = result.get(i);
 			for (int j : arrayNews) {
 				if (newsDelete.getIdNews() == j) {

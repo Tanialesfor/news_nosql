@@ -18,9 +18,9 @@ public class UserServiceImpl implements IUserService{
 	@Override
 	public String signIn(String login, String password) throws ServiceException {
 				
-		  if(!userDataValidation.checkAUthData(login, password)) { 
-			  throw new ServiceException("login or password invalid"); 
-		  }
+		if(!userDataValidation.checkAUthData(login, password)) { 
+			throw new ServiceException("login or password invalid"); 
+		}
 		 		
 		try {
 			if(userDAO.logination(login, password)) {
@@ -36,13 +36,15 @@ public class UserServiceImpl implements IUserService{
 
 	@Override
 	public boolean registration(NewUserInfo user) throws ServiceException {
-		String name=user.getUserName();
-		String email=user.getEmail();
-		String login=user.getLogin();
-		String password=user.getPassword();
+//		String name=user.getUserName();
+//		String email=user.getEmail();
+//		String login=user.getLogin();
+//		String password=user.getPassword();
 		
-		if (!userDataValidation.checkRegData(name, login, password, email)) {
-			throw new ServiceException("input field invalid");}
+//		if (!userDataValidation.checkRegData(name, login, password, email)) {
+//			throw new ServiceException("input field invalid");
+//		}
+		
 		try {
 			if (userDAO.registration(user)) {
 				return true;

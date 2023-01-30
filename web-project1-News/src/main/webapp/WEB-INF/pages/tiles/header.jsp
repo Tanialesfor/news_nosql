@@ -20,14 +20,19 @@
 			<div align="right">
 				<form action="controller" method="post">
 									  <input type="hidden" name="command" value="do_sign_in" /> 
-					${enter_login}    <input type="text" name="login" value="" title="enter the number of latin characters from 1 to 10"/><br /> 
-					${enter_password} <input type="password" name="password" value="" title="enter the number of latin characters from 1 to 10"/><br />
+					${login}    <input type="text" name="login" value="" title="enter the number of latin characters from 1 to 10"/><br /> 
+					${password} <input type="password" name="password" value="" title="enter the number of latin characters from 1 to 10"/><br />
 	
 					<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
 						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
-					</c:if>																		
+					</c:if>		
+					<c:if test="${not (sessionScope.autherMessage eq null)}">
+						<font color="blue"> 
+					   		<c:out value="${sessionScope.autherMessage}" />
+						</font> 
+					</c:if>																	
 					<a href="controller?command=go_to_registration_page"> ${registration} </a> 
 					<input type="submit" value="${sign_In}" /><br />
 				</form>
@@ -38,15 +43,16 @@
 		<c:if test="${sessionScope.user eq 'active'}">
 			<div align="right">
             	<form action="controller" method="post">
-              		<c:if test="${not (sessionScope.autherMessage eq null)}">
+	            	<c:if test="${not (sessionScope.autherMessage eq null)}">
 						<font color="blue"> 
-						   <c:out value="${sessionScope.autherMessage}" />
+						   	<c:out value="${sessionScope.autherMessage}" />
+						   	<c:remove var="autherMessage"/>						   	
 						</font> 
-					</c:if>		
-					<input type="hidden" name="command" value="do_sign_out" /> 
+					</c:if>	
+   					<input type="hidden" name="command" value="do_sign_out" /> 
 					<input type="submit" value="${sign_Out}" /><br />
 				</form>					
 			</div>
-		</c:if>		
+		</c:if>				
 	</div>
 </div>
