@@ -15,6 +15,6 @@ public class NoSuchCommand implements Command {
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		request.getSession().setAttribute(ERROR_MESSAGE, "no such command");
-		response.sendRedirect("controller?command=go_to_error_page");
+		response.sendRedirect("controller?command=go_to_error_page");	
 	}
 }

@@ -47,7 +47,7 @@ public class CommandProvider {
 			CommandName commandName = CommandName.valueOf(name.toUpperCase());
 			command = commands.get(commandName);
 			return command;
-		} catch (NoSuchElementException e) {			
+		} catch (IllegalArgumentException e){			
 			return commands.get(CommandName.NO_SUCH_COMMAND);
 		}
 	}
