@@ -1,5 +1,7 @@
 package by.htp.ex.service.impl;
 
+import java.sql.SQLException;
+
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
@@ -28,7 +30,7 @@ public class UserServiceImpl implements IUserService{
 			}else {
 				return "guest";
 			}
-		} catch(DaoException e) {
+		} catch(DaoException | ClassNotFoundException | SQLException e) {
 			throw new ServiceException(e);
 		}
 		
@@ -51,7 +53,7 @@ public class UserServiceImpl implements IUserService{
 			} else {
 				return false;
 			}
-		} catch (DaoException e) {
+		} catch (DaoException | ClassNotFoundException | SQLException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -63,7 +65,7 @@ public class UserServiceImpl implements IUserService{
 			if (userDAO.isAdmin(login, password)==true) {
 				return true;
 			}
-		} catch (DaoException e) {
+		} catch (DaoException | ClassNotFoundException | SQLException e) {
 			throw new ServiceException(e);
 		}
 		return false;
