@@ -70,13 +70,14 @@ public class UserDAO implements IUserDAO {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		
 		Connection con = null;
+		PreparedStatement ps=null;
 		ResultSet rs = null;
 		
 		try {
 		con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/news?useSSL=false", "root", "123456");
 
 		String sql = "SELECT password FROM users WHERE login = ?";
-		PreparedStatement ps = con.prepareStatement(sql);
+		ps = con.prepareStatement(sql);
 		ps.setString(1, login);
 		
 		rs = ps.executeQuery();
@@ -105,14 +106,14 @@ public class UserDAO implements IUserDAO {
 				e.printStackTrace();
 			}
 			
-//			try {
-//				if (st != null) {
-//					st.close();
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-			
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+					
 			try {
 				if (con != null) {
 					con.close();
