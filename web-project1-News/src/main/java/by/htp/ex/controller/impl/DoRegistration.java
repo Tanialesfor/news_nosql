@@ -19,35 +19,45 @@ public class DoRegistration implements Command {
 	private final UserDataValidation userDataValidation = ValidationProvider.getInstance().getUserDataValidation();
 
 	private static final String JSP_NAME_PARAM = "name";
+	private static final String JSP_SURNAME_PARAM = "surname";
+	private static final String JSP_BIRTHDAY_PARAM = "birthday";
 	private static final String JSP_EMAIL_PARAM = "email";
 	private static final String JSP_LOGIN_PARAM = "login";
 	private static final String JSP_PASSWORD_PARAM = "password";
 	private static final String ERROR_MESSAGE = "errorMessage";
-	private static final String AUTHER_MESSAGE = "autherMessage";	
-	private static final String AUTHER_ERROR = "AuthenticationError";
+	private static final String AUTHER_MESSAGE_REG = "autherMessageReg";
+	private static final String AUTHER_MESSAGE_REG_TEXT="local.doRegistration.auther.message.text";
+	private static final String AUTHER_INF_REG = "autherInfReg";
+	private static final String AUTHER_INF_REG_TEXT="local.doRegistration.auther.inf.text";
+	private static final String AUTHER_ERROR_REG = "RegistrationError";
+	private static final String AUTHER_ERROR_REG_TEXT="local.doRegistration.auther.error.text";
 	private static final String PRESENTATION = "presentation";	
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String name;
+		String surname;
+		String birthday;
 		String email;
 		String login;
 		String password;
 
 		name = request.getParameter(JSP_NAME_PARAM);
+		surname = request.getParameter(JSP_SURNAME_PARAM);
+		birthday = request.getParameter(JSP_BIRTHDAY_PARAM);
 		email = request.getParameter(JSP_EMAIL_PARAM);
 		login = request.getParameter(JSP_LOGIN_PARAM);
 		password = request.getParameter(JSP_PASSWORD_PARAM);
 				
-		if(userDataValidation.checkRegData(name, login, password, email)) {		
+		if(userDataValidation.checkRegData(name, surname, birthday, login, password, email)) {		
 			try {
-				NewUserInfo user= new NewUserInfo (name, email, login, password);
+				NewUserInfo user= new NewUserInfo (name, surname, birthday, email, login, password);
 	    		if (service.registration(user)) {
-	    		    request.getSession().setAttribute(AUTHER_MESSAGE, "registration completed successfully");
+	    		    request.getSession().setAttribute(AUTHER_MESSAGE_REG, AUTHER_MESSAGE_REG_TEXT);
 	    		    response.sendRedirect("controller?command=go_to_news_list");		    		    
 	    		} else {
-	    			request.setAttribute(AUTHER_ERROR, "user already exist");
+	    			request.getSession().setAttribute(AUTHER_INF_REG, AUTHER_INF_REG_TEXT);
 	    			request.setAttribute(PRESENTATION, "registration");
 	    			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);	  			
 	    		}          	
@@ -56,7 +66,7 @@ public class DoRegistration implements Command {
 	    		response.sendRedirect("controller?command=go_to_error_page");		
 	    	}
 		} else {
-			request.setAttribute(AUTHER_ERROR, "input field invalid");
+			request.setAttribute(AUTHER_ERROR_REG, AUTHER_ERROR_REG_TEXT);
 			request.setAttribute(PRESENTATION, "registration");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);				
 		}	

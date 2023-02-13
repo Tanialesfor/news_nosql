@@ -19,6 +19,7 @@ public class DoSIgnIn implements Command {
 	private static final String JSP_LOGIN_PARAM = "login";
 	private static final String JSP_PASSWORD_PARAM = "password";
 	private static final String AUTHER_ERROR = "AuthenticationError";
+	private static final String AUTHER_ERROR_TEXT = "local.signIn.auther.error.text";
 	private static final String ERROR_MESSAGE = "errorMessage";
 
 	@Override
@@ -40,11 +41,11 @@ public class DoSIgnIn implements Command {
 				response.sendRedirect("controller?command=go_to_news_list");
 			} else {
 				request.getSession(true).setAttribute("user", "not active");
-				request.setAttribute(AUTHER_ERROR, "wrong login or password");
+				request.setAttribute(AUTHER_ERROR, AUTHER_ERROR_TEXT);
 				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 			}
 			
-		} catch (ServiceException | ClassNotFoundException | SQLException e) {
+		} catch (ServiceException e) {
 			request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
 			response.sendRedirect("controller?command=go_to_error_page");
 		}			

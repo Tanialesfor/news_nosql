@@ -22,6 +22,11 @@
 <fmt:message bundle="${loc}" key="local.general.submit.save" var="save"/>
 <fmt:message bundle="${loc}" key="local.general.submit.cancel" var="cancel"/>
 
+<fmt:message bundle="${loc}" key="local.signIn.auther.error.text" var="signIn_auther_error_text"/>
+<fmt:message bundle="${loc}" key="local.doRegistration.auther.error.text" var="doRegistration_auther_error_text"/>
+<fmt:message bundle="${loc}" key="local.doRegistration.auther.message.text" var="doRegistration_auther_message_text"/>
+<fmt:message bundle="${loc}" key="local.doRegistration.auther.inf.text" var="doRegistration_auther_inf_text"/>
+
 <fmt:message bundle="${loc}" key="local.header.en" var="en_button"/>
 <fmt:message bundle="${loc}" key="local.header.ru" var="ru_button"/>
 <fmt:message bundle="${loc}" key="local.header.news_management" var="news_management"/>
@@ -52,6 +57,8 @@
 <fmt:message bundle="${loc}" key="local.registration.page" var="registration_page"/>
 <fmt:message bundle="${loc}" key="local.registration.text" var="registration_text"/>
 <fmt:message bundle="${loc}" key="local.registration.enter_name" var="name"/>
+<fmt:message bundle="${loc}" key="local.registration.enter_surname" var="surname"/>
+<fmt:message bundle="${loc}" key="local.registration.enter_birthday" var="birthday"/>
 <fmt:message bundle="${loc}" key="local.registration.enter_email" var="email"/>
 <fmt:message bundle="${loc}" key="local.registration.submit.registration" var="registration_button"/>
 

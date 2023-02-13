@@ -6,6 +6,7 @@ import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
+import by.htp.ex.dao.impl.connectionpool.ConnectionPoolException;
 import by.htp.ex.service.ServiceException;
 import by.htp.ex.util.validation.UserDataValidation;
 import by.htp.ex.util.validation.ValidationProvider;
@@ -30,7 +31,7 @@ public class UserServiceImpl implements IUserService{
 			}else {
 				return "guest";
 			}
-		} catch(DaoException | ClassNotFoundException | SQLException e) {
+		} catch(DaoException | SQLException | ConnectionPoolException e) {
 			throw new ServiceException(e);
 		}
 		
@@ -53,7 +54,7 @@ public class UserServiceImpl implements IUserService{
 			} else {
 				return false;
 			}
-		} catch (DaoException | ClassNotFoundException | SQLException e) {
+		} catch (DaoException | SQLException | ConnectionPoolException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -65,7 +66,7 @@ public class UserServiceImpl implements IUserService{
 			if (userDAO.isAdmin(login, password)==true) {
 				return true;
 			}
-		} catch (DaoException | ClassNotFoundException | SQLException e) {
+		} catch (DaoException | SQLException | ConnectionPoolException e) {
 			throw new ServiceException(e);
 		}
 		return false;
