@@ -169,7 +169,7 @@ public class UserDAO implements IUserDAO {
 			}		
 		}
 		catch (SQLException e) {
-			throw new DaoException("error select role_name in tables users, role  from method getRole", e);
+			throw new DaoException("error select role_name in tables users, role from method getRole", e);
 		}
 		catch (ConnectionPoolException e) {
 			throw new DaoException("problem with connection pool", e);
