@@ -31,7 +31,7 @@ public class UserServiceImpl implements IUserService{
 			}else {
 				return "guest";
 			}
-		} catch(DaoException | SQLException | ConnectionPoolException e) {
+		} catch(DaoException e) {
 			throw new ServiceException(e);
 		}
 		
@@ -54,7 +54,7 @@ public class UserServiceImpl implements IUserService{
 			} else {
 				return false;
 			}
-		} catch (DaoException | SQLException | ConnectionPoolException e) {
+		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -66,7 +66,7 @@ public class UserServiceImpl implements IUserService{
 			if (userDAO.isAdmin(login, password)==true) {
 				return true;
 			}
-		} catch (DaoException | SQLException | ConnectionPoolException e) {
+		} catch (DaoException e) {
 			throw new ServiceException(e);
 		}
 		return false;

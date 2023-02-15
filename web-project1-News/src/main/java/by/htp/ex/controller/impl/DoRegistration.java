@@ -26,11 +26,12 @@ public class DoRegistration implements Command {
 	private static final String JSP_PASSWORD_PARAM = "password";
 	private static final String ERROR_MESSAGE = "errorMessage";
 	private static final String AUTHER_MESSAGE_REG = "autherMessageReg";
-	private static final String AUTHER_MESSAGE_REG_TEXT="local.doRegistration.auther.message.text";
+	private static final String REGISTRATION_COMPLETED_SUCCESSFULLY="local.doRegistration.auther.message.text";
 	private static final String AUTHER_INF_REG = "autherInfReg";
-	private static final String AUTHER_INF_REG_TEXT="local.doRegistration.auther.inf.text";
+	private static final String USER_ALREADY_EXIST="local.doRegistration.auther.inf.text";
+	
 	private static final String AUTHER_ERROR_REG = "RegistrationError";
-	private static final String AUTHER_ERROR_REG_TEXT="local.doRegistration.auther.error.text";
+	private static final String INPUT_FIELDS_INVALID="local.doRegistration.auther.error.text";
 	private static final String PRESENTATION = "presentation";	
 	
 	@Override
@@ -54,10 +55,10 @@ public class DoRegistration implements Command {
 			try {
 				NewUserInfo user= new NewUserInfo (name, surname, birthday, email, login, password);
 	    		if (service.registration(user)) {
-	    		    request.getSession().setAttribute(AUTHER_MESSAGE_REG, AUTHER_MESSAGE_REG_TEXT);
+	    		    request.getSession().setAttribute(AUTHER_MESSAGE_REG, REGISTRATION_COMPLETED_SUCCESSFULLY);
 	    		    response.sendRedirect("controller?command=go_to_news_list");		    		    
 	    		} else {
-	    			request.getSession().setAttribute(AUTHER_INF_REG, AUTHER_INF_REG_TEXT);
+	    			request.getSession().setAttribute(AUTHER_INF_REG, USER_ALREADY_EXIST);
 	    			request.setAttribute(PRESENTATION, "registration");
 	    			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);	  			
 	    		}          	
@@ -66,7 +67,7 @@ public class DoRegistration implements Command {
 	    		response.sendRedirect("controller?command=go_to_error_page");		
 	    	}
 		} else {
-			request.setAttribute(AUTHER_ERROR_REG, AUTHER_ERROR_REG_TEXT);
+			request.setAttribute(AUTHER_ERROR_REG, INPUT_FIELDS_INVALID);
 			request.setAttribute(PRESENTATION, "registration");
 			request.getRequestDispatcher("WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);				
 		}	

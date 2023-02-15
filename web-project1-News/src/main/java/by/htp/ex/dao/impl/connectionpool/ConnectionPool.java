@@ -69,7 +69,6 @@ public class ConnectionPool {
 	static {
 		try {
 			connectionPool = new ConnectionPool();
-
 		} catch (Exception e) {
 			throw new RuntimeException("Exception occurred in creating singleton connectionPool");
 		}

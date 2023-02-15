@@ -15,6 +15,7 @@ import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 import by.htp.ex.dao.impl.connectionpool.ConnectionPool;
 import by.htp.ex.dao.impl.connectionpool.ConnectionPoolException;
+import by.htp.ex.service.ServiceException;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -60,203 +61,236 @@ public class UserDAO implements IUserDAO {
 //		userArray.add(new NewUserInfo ("Ula", "ula.1999@gmail.com","ula1999", "5551999", getRole("user")));
 //	 }  
 	
+	private static final String SELECT_PASSWORD_FROM_LOGIN = "SELECT password FROM users WHERE login = ?";
+	private static final String SELECT_ID_FROM_LOGIN = "SELECT id FROM users WHERE login = ?";
+	private static final String SELECT_ROLE_NAME_FROM_LOGIN = "SELECT role_name FROM news.roles INNER JOIN news.users ON news.roles.id=news.users.roles_id WHERE login = ?";
+	private static final String SELECT_PERMISSION_NAME_FROM_PREMID_LOGIN = "SELECT permission_name FROM news.permissions INNER JOIN news.role_has_permissions ON news.permissions.id=news.role_has_permissions.permissions_id \r\n"
+	+ "INNER JOIN news.roles ON news.roles.id=news.role_has_permissions.roles_id \r\n"
+	+ "INNER JOIN news.users ON news.roles.id=news.users.roles_id WHERE news.permissions.id='2' AND news.users.login=?";
+	private static final String INSERT_USERS = "INSERT INTO users(login, password, date_registration, roles_id, status_id) VALUES(?, ?, ?, ?, ?)";
+	private static final String INSERT_USERS_DETAILS = "INSERT INTO user_details(users_id, name, surname, birthday, email) VALUES(?, ?, ?, ?, ?)";
 	
 	private ConnectionPool pool = ConnectionPool.getConnectionPool();		
-
-//	public NewUserInfo getUser(String login){					
-//		for (NewUserInfo element : userArray) {
-//			if (element.getLogin().equals(login)) {
-//				return element;
-//			}			
-//		}
-//		return null;		
-//	}
 	
     @Override
- 	public boolean logination(String login, String password) throws DaoException, ConnectionPoolException, SQLException {
-    	    	
-//		Class.forName("com.mysql.cj.jdbc.Driver");
-    	
+ 	public boolean logination(String login, String password) throws DaoException {
+    	        	
 		Connection con = null;
 		PreparedStatement ps=null;
 		ResultSet rs = null;
 		boolean success = false;
 		
-		//con = DriverManager.getConnection("jdb:cmysql://127.0.0.1/news?useSSL=false", "root", "123456");
+		try {	
+			con = pool.takeConnection();     
+			ps = con.prepareStatement(SELECT_PASSWORD_FROM_LOGIN);
+			ps.setString(1, login);
 			
-		con = pool.takeConnection();     
-		String sql = "SELECT password FROM users WHERE login = ?";
-		ps = con.prepareStatement(sql);
-		ps.setString(1, login);
-		
-		rs = ps.executeQuery();
-		while (rs.next()) {
-	        if (rs.getString("password").equals(password)) {	        	
-	        	success = true;
-	        }
+			rs = ps.executeQuery();
+			while (rs.next()) {
+		        if (rs.getString("password").equals(password)) {	        	
+		        	success = true;
+		        }
+			}
+			
+			if (success == true) {
+				return true;
+			}		
 		}
-		
-		pool.closeConnection(con, ps, rs);	
-		
-		if (success == true) {
-			return true;
+    	catch (SQLException e) {
+			throw new DaoException("error select login in news.users from method logination", e);
 		}
-
-// 		for (NewUserInfo element : userArray) {
-//			if (element.getLogin().equals(login)==true) {
-//				if (element.getPassword().equals(password)==true) {
-//					return true;
-//				}
-//			}			
-//		}    	 
+		catch (ConnectionPoolException e) {
+			throw new DaoException("problem with connection pool", e);		
+        } 
+		finally {
+			pool.closeConnection(con, ps, rs);
+	   }
 		
-    	return false;		
- 	}
+		return false;
+    }
      
 	@Override
-	public boolean loginExist(String login) throws DaoException, ConnectionPoolException, SQLException {
+	public boolean loginExist(String login) throws DaoException {
 		Connection con = null;
 		PreparedStatement ps=null;
 		ResultSet rs = null;		
-		
-		con = pool.takeConnection();     
-		String sql = "SELECT password FROM users WHERE login = ?";
-		ps = con.prepareStatement(sql);
-		ps.setString(1, login);
-		
-		rs = ps.executeQuery();
-		
-		boolean success = false;
-		
-		if (rs.next()) {
-			success = true;
-		}
-		
-		pool.closeConnection(con, ps, rs);
-		
-		if (success == true) {
-			return true;
-		}
-		
-// 		for (NewUserInfo element : userArray) {
-//			if (element.getLogin().equals(login)==true) {
-//				return true;
-//			}			
-//		}					
-		
-		return false;
-	}    
-    
-     	
-	public String getRole(String login, String password) throws DaoException, ConnectionPoolException, SQLException {
-		String nameRole = "guest";
-		
-		if (logination(login, password)==true) {
-			Connection con = null;
-			PreparedStatement ps=null;
-			ResultSet rs = null;
-			
+		try {
 			con = pool.takeConnection();     
-			String sql = "SELECT role_name FROM news.roles INNER JOIN news.users ON news.roles.id=news.users.roles_id WHERE login = ?";
-			ps = con.prepareStatement(sql);
+			ps = con.prepareStatement(SELECT_PASSWORD_FROM_LOGIN);
 			ps.setString(1, login);
 			
-			rs = ps.executeQuery();					
-			
-			if (rs.next()) {
-				nameRole = rs.getString("role_name");
-			}
-			
-			pool.closeConnection(con, ps, rs);
-			
-			if (nameRole != null) {
-				return nameRole;
-			}
-			
-		}		
-		
-		return nameRole;
-	}
-	
-	public boolean isAdmin(String login, String password) throws DaoException, ConnectionPoolException, SQLException {
-		if (logination(login, password)==true) {
-			Connection con = null;
-			PreparedStatement ps=null;
-			ResultSet rs = null;
-			
-			con = pool.takeConnection();     
-			String sql = "SELECT permission_name FROM news.permissions INNER JOIN news.role_has_permissions ON news.permissions.id=news.role_has_permissions.permissions_id \r\n"
-					+ "INNER JOIN news.roles ON news.roles.id=news.role_has_permissions.roles_id \r\n"
-					+ "INNER JOIN news.users ON news.roles.id=news.users.roles_id WHERE news.permissions.id='2' AND news.users.login=?";
-			ps = con.prepareStatement(sql);
-			ps.setString(1, login);			
-			
-			rs = ps.executeQuery();					
+			rs = ps.executeQuery();
 			
 			boolean success = false;
 			
 			if (rs.next()) {
 				success = true;
 			}
-			
-			pool.closeConnection(con, ps, rs);
-			
-			if (success = true) {
+					
+			if (success == true) {
 				return true;
+			}					
+		}
+		catch (SQLException e) {
+			throw new DaoException("error select login in news.users from method loginExist", e);
+		}
+		catch (ConnectionPoolException e) {
+			throw new DaoException("problem with connection pool", e);
+		}
+		finally {
+			pool.closeConnection(con, ps, rs);
+		}
+		
+		return false;		
+	}    
+    
+     	
+	public String getRole(String login, String password) throws DaoException {
+		String nameRole = "guest";
+		Connection con = null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		
+		try {
+			if (logination(login, password)==true) {			
+				con = pool.takeConnection();     
+				ps = con.prepareStatement(SELECT_ROLE_NAME_FROM_LOGIN);
+				ps.setString(1, login);
+				
+				rs = ps.executeQuery();					
+				
+				if (rs.next()) {
+					nameRole = rs.getString("role_name");
+				}
+			
+				if (nameRole != null) {
+					return nameRole;
+				}			
+			}		
+		}
+		catch (SQLException e) {
+			throw new DaoException("error select role_name in tables users, role  from method getRole", e);
+		}
+		catch (ConnectionPoolException e) {
+			throw new DaoException("problem with connection pool", e);
+		} 
+		finally {
+			pool.closeConnection(con, ps, rs);
+		}
+	return nameRole;
+}
+	
+	public boolean isAdmin(String login, String password) throws DaoException {
+		Connection con = null;
+		PreparedStatement ps=null;
+		ResultSet rs = null;
+		
+		try{
+			if (logination(login, password)==true) {						
+				con = pool.takeConnection();     
+				ps = con.prepareStatement(SELECT_PERMISSION_NAME_FROM_PREMID_LOGIN);
+				ps.setString(1, login);			
+				
+				rs = ps.executeQuery();					
+				
+				boolean success = false;
+				
+				if (rs.next()) {
+					success = true;
+				}
+					
+				if (success == true) {
+					return true;
+				}
 			}
-
-		}						
-	return false;
+		}
+		catch (SQLException e) {
+			throw new DaoException("error select permission_name in tables users, role, permission from method isAdmin", e);
+		}
+		catch (ConnectionPoolException e) {
+			throw new DaoException("problem with connection pool", e);
+		} 
+		finally {
+			pool.closeConnection(con, ps, rs);
+		}
+	return false;			
 	}	
 
 	@Override
-	public boolean registration(NewUserInfo user) throws DaoException, ConnectionPoolException, SQLException {				
-		if (loginExist(user.getLogin())==false) {
-//			user.setRole(getRole("user"));
-			
-			Connection con = null;
-			PreparedStatement ps=null;
-			ResultSet rs = null;
-			
-			con = pool.takeConnection();
-			String sql = "INSERT INTO users(login, password, date_registration, roles_id, status_id) VALUES(?, ?, ?, ?, ?)";
-			ps = con.prepareStatement(sql);
-
-			ps.setString(1, user.getLogin());
-			ps.setString(2, user.getPassword());
-			
-			Date now = new Date();
-			java.sql.Date date = new java.sql.Date(now.getTime());
-			ps.setDate(3, date);
-			ps.setString(4, "2");
-			ps.setString(5, "1");
-
-			boolean success = false;
-			
-			if (ps.executeUpdate()>=1) {
-				success = true;	
-			}
-			
-//			con = pool.takeConnection();
-//			String sql2 = "INSERT INTO user-details(users_id, name, surname, birthday, email) VALUES(?, ?, ?, ?, ?)";
-//			ps = con.prepareStatement(sql2);
-//
-//			ps.setString(1, user.getLogin());
-//			ps.setString(2, user.getUserName());
-//			ps.setString(3, user.getUserSurname());
-//			ps.setString(4, user.getBirthday());
-//			ps.setString(5, user.getEmail());
-
-//			boolean success = false;
-			
+	public boolean registration(NewUserInfo user) throws DaoException {				
+		Connection con = null;
+		PreparedStatement ps=null;
 						
-			pool.closeConnection(con, ps, rs);
+		if (loginExist(user.getLogin())==false) {
+			try  {	
+				con = pool.takeConnection();
+				con.setAutoCommit(false);
+				ps = con.prepareStatement(INSERT_USERS);
+	
+				ps.setString(1, user.getLogin());
+				ps.setString(2, user.getPassword());
+				Date now = new Date();
+				java.sql.Date date = new java.sql.Date(now.getTime());
+				ps.setDate(3, date);
+				ps.setString(4, "2");
+				ps.setString(5, "1");
+	
+				boolean success = false;
+				int user_id=-1;
+				
+				con.commit();
+				
+				if (ps.executeUpdate()>=1) {	
+					try {
+						PreparedStatement ps2 = con.prepareStatement(SELECT_ID_FROM_LOGIN);
+						ps2.setString(1, user.getLogin());					
+						ResultSet rs = ps2.executeQuery();
+						
+						while (rs.next()) {
+							user_id = rs.getInt("id");
+							success = true;	
+						}
+						
+						ps2.close();
+						rs.close();
+					}
+					catch (SQLException e) {
+						throw new DaoException(e);
+					}
+				}
+				else con.rollback();
+				
+				if (success = true) {
+					success = false;
+					PreparedStatement ps3 = con.prepareStatement(INSERT_USERS_DETAILS);
+					ps3.setInt(1, user_id);
+					ps3.setString(2, user.getUserName());
+					ps3.setString(3, user.getUserSurname());
+					ps3.setString(4, user.getBirthday());
+					ps3.setString(5, user.getEmail());
+					
+					if (ps3.executeUpdate()>=1) {
+						con.commit();
+						ps3.close();
+						success = true;	
+					}
+					else con.rollback();
+				} 
+			 
+					if (success == true) {
+					return true;
+				}
 			
-			if (success == true) {
-				return true;
 			}
-			
-//			userArray.add(user);
+			catch (SQLException e) {
+				throw new DaoException("error insert user in tables users, user_details from method registration",e);
+			}
+			catch (ConnectionPoolException e) {
+				throw new DaoException("problem with connection pool", e);
+			}
+			finally {
+				pool.closeConnection(con, ps);
+			}
 		}
 		return false;
 	}

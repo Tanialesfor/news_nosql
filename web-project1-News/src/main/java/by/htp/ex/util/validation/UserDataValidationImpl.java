@@ -8,7 +8,7 @@ public class UserDataValidationImpl implements UserDataValidation{
 
 	private static final String NAME_PATTERN_REG = "^[a-zA-Z]{1,10}$";	
 	private static final String SURNAME_PATTERN_REG = "^[a-zA-Z]{1,15}$";
-	private static final String BIRTHDAY_PATTERN_REG = "(19|20\\d\\d)\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])\\-";
+	private static final String BIRTHDAY_PATTERN_REG = "(19|20\\d\\d)\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])";
 	private static final String LOGIN_PATTERN_REG = "^[a-zA-Z0-9]{1,10}$";
 	private static final String PASSWORD_PATTERN_REG = "^[a-zA-Z0-9]{1,10}$";
 	private static final String EMAIL_PATTERN_REG = "^[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9]+)*(\\.[a-zA-Z]{2,})$";
@@ -35,7 +35,7 @@ public class UserDataValidationImpl implements UserDataValidation{
 		Matcher loginMatcher = LOGIN_PATTERN.matcher(login);
 		Matcher passwordMatcher=PASSWORD_PATTERN.matcher(password);
 		Matcher emailMatcher=EMAIL_PATTERN.matcher(email);
-		return nameMatcher.matches()&surnameMatcher.matches()& birthdayMatcher.matches()& loginMatcher.matches()&passwordMatcher.matches()&emailMatcher.matches();
+		return nameMatcher.matches()&surnameMatcher.matches()& loginMatcher.matches()&passwordMatcher.matches()&emailMatcher.matches();//& birthdayMatcher.matches();
 	}
 		
 }
