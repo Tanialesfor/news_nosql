@@ -34,7 +34,7 @@ public class NewsDAO implements INewsDAO {
 	private static final String INSERT_NEWS = "INSERT INTO news.news(title, data_creation, brief, content, users_id, status-news_id) VALUES(?, ?, ?, ?, ?, ?)";
 
 
-	private ConnectionPool pool = ConnectionPool.getConnectionPool();
+	private final ConnectionPool pool = ConnectionPool.getConnectionPool();
 
 	@Override
 	public List<News> getLatestsList(int count) throws NewsDAOException {

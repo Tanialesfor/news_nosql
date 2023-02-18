@@ -1,9 +1,6 @@
 package by.htp.ex.service;
 
-import java.sql.SQLException;
-
 import by.htp.ex.bean.NewUserInfo;
-import by.htp.ex.dao.impl.connectionpool.ConnectionPoolException;
 
 public interface IUserService {
 	

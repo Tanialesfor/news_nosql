@@ -1,13 +1,11 @@
 package by.htp.ex.service.impl;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import by.htp.ex.bean.News;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.INewsDAO;
 import by.htp.ex.dao.NewsDAOException;
-import by.htp.ex.dao.impl.connectionpool.ConnectionPoolException;
 import by.htp.ex.service.INewsService;
 import by.htp.ex.service.ServiceException;
 

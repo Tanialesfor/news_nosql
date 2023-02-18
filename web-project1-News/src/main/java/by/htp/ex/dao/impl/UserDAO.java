@@ -70,7 +70,7 @@ public class UserDAO implements IUserDAO {
 	private static final String INSERT_USERS = "INSERT INTO users(login, password, date_registration, roles_id, status_id) VALUES(?, ?, ?, ?, ?)";
 	private static final String INSERT_USERS_DETAILS = "INSERT INTO user_details(users_id, name, surname, birthday, email) VALUES(?, ?, ?, ?, ?)";
 	
-	private ConnectionPool pool = ConnectionPool.getConnectionPool();		
+	private final ConnectionPool pool = ConnectionPool.getConnectionPool();		
 	
     @Override
  	public boolean logination(String login, String password) throws DaoException {
