@@ -60,7 +60,7 @@ public class NewsServiceImpl implements INewsService {
 	public List<News> latestList(int count) throws ServiceException {
 		try {
 			return newsDAO.getLatestsList(5);
-		} catch (NewsDAOException e) {
+		} catch (NewsDAOException | SQLException | ConnectionPoolException e) {
 			throw new ServiceException(e);
 		}
 	}
@@ -69,7 +69,7 @@ public class NewsServiceImpl implements INewsService {
 	public List<News> list() throws ServiceException {
 		try {
 			return newsDAO.getList();
-		} catch (NewsDAOException e) {
+		} catch (NewsDAOException | SQLException | ConnectionPoolException e) {
 			throw new ServiceException(e);
 		}
 	}
