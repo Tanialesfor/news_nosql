@@ -1,10 +1,5 @@
 package by.htp.ex.dao.impl;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,8 +7,6 @@ import java.util.List;
 import by.htp.ex.bean.News;
 import by.htp.ex.dao.INewsDAO;
 import by.htp.ex.dao.NewsDAOException;
-import by.htp.ex.dao.impl.connectionpool.ConnectionPool;
-import by.htp.ex.dao.impl.connectionpool.ConnectionPoolException;
 
 public class NewsDAO implements INewsDAO {
 
@@ -26,60 +19,14 @@ public class NewsDAO implements INewsDAO {
 		result.add(new News(5, "title5", "brief5brief5brief5brief5brief5brief5brief5", "contect5", "11/11/22"));
 	}
 
-	private ConnectionPool pool = ConnectionPool.getConnectionPool();		
-	
 	@Override
-	public List<News> getLatestsList(int count) throws NewsDAOException, SQLException, ConnectionPoolException {
-		
-		List<News> list = new ArrayList<News>();
-		
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-		
-		con = pool.takeConnection();     		
-		st = con.createStatement();
-		
-		rs = st.executeQuery("SELECT * FROM news.news");		
-
-		Integer i=0;
-		while (rs.next()||i==5) {	        	
-	        list.add(new News(rs.getInt("id"),rs.getString("title"),rs.getString("brief"),rs.getString("content"),rs.getDate("date_creation").toString()));
-	        i++;
-		}
-		
-//		while (rs.next()) {	        	
-//	        list.add(new News(rs.getInt("id"),rs.getString("title"),rs.getString("brief"),rs.getString("content"),rs.getDate("date_creation").toString()));
-//		}	
-		
-		pool.closeConnection(con, st, rs);		
-		
-		return list;
-//		return list.size() < count ? list : list.subList(0, count);
+	public List<News> getLatestsList(int count) throws NewsDAOException {
+		return result.size() < count ? result : result.subList(0, count);
 	}
 
 	@Override
-	public List<News> getList() throws NewsDAOException, SQLException, ConnectionPoolException {
-		List<News> list = new ArrayList<News>();
-		
-		Connection con = null;
-		Statement st = null;
-		ResultSet rs = null;
-		
-		con = pool.takeConnection();
-		st = con.createStatement();
-
-		rs = st.executeQuery("SELECT * FROM news.news");		
-
-		while (rs.next()) {	        	
-	        list.add(new News(rs.getInt("id"),rs.getString("title"),rs.getString("brief"),rs.getString("content"),rs.getDate("date_creation").toString()));
-		}	
-		
-		pool.closeConnection(con, st, rs);	
-		
-		return list;		
-		
-//		return result;
+	public List<News> getList() throws NewsDAOException {
+		return result;
 	}
 
 	@Override

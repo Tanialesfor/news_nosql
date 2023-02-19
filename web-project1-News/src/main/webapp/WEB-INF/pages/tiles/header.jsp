@@ -25,37 +25,14 @@
 	
 					<c:if test="${not (requestScope.AuthenticationError eq null)}">
 						<font color="red"> 
-						   <c:out value="${signIn_auther_error_text}" />
-						   </font> 
-						 </c:if>	  
-				  
-				  <c:if test="${not (requestScope.RegistrationError eq null)}">
-						<font color="red"> 
-						   <c:out value="${doRegistration_auther_inf_text}" />
-						   <c:remove var="RegistrationError"/>	
-						</font> 
-					</c:if>	
-					
-					<c:if test="${not (sessionScope.autherMessageReg eq null)}">
-						<font color="orange"> 
-						   	<c:out value="${doRegistration_auther_message_text}" />
-						   	<c:remove var="autherMessageReg"/>						   	
+						   <c:out value="${requestScope.AuthenticationError}" />
 						</font> 
 					</c:if>		
-					
-					<c:if test="${not (sessionScope.autherInfReg eq null)}">
-						<font color="red"> 
-						   	<c:out value="${doRegistration_auther_inf_text}" />
-						   	<c:remove var="autherInfReg"/>						   	
-						</font> 
-					</c:if>	
-					
 					<c:if test="${not (sessionScope.autherMessage eq null)}">
 						<font color="blue"> 
 					   		<c:out value="${sessionScope.autherMessage}" />
 						</font> 
-					</c:if>	
-																								
+					</c:if>																	
 					<a href="controller?command=go_to_registration_page"> ${registration} </a> 
 					<input type="submit" value="${sign_In}" /><br />
 				</form>
@@ -72,8 +49,6 @@
 						   	<c:remove var="autherMessage"/>						   	
 						</font> 
 					</c:if>	
-						
-																														
    					<input type="hidden" name="command" value="do_sign_out" /> 
 					<input type="submit" value="${sign_Out}" /><br />
 				</form>					

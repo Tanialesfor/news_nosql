@@ -19,25 +19,6 @@
 			</div></td>
 			
 		</tr>
-		
-		<tr>
-			<td class="space_around_title_text">${surname}    </td>
-			<td class="space_around_view_text">
-			<div class="word-breaker">
-				<input type="text" name="surname" value="${requestScope.user.userSurname}" > 
-			</div></td>
-			
-		</tr>
-		
-		<tr>
-			<td class="space_around_title_text">${birthday}    </td>
-			<td class="space_around_view_text">
-			<div class="word-breaker">
-				<input type="text" name="birthday" value="${requestScope.user.birthday}" > 
-			</div></td>
-			
-		</tr>
-		
 		<tr>
 			<td class="space_around_title_text">${email}</td>
 			<td class="space_around_view_text">

@@ -7,8 +7,6 @@ public class NewUserInfo implements Serializable {
 private static final long serialVersionUID = 1L;
 	
 	private String userName;
-	private String userSurname;
-	private String birthday;
 	private String email;
 	private String login;
 	private String password;
@@ -16,11 +14,9 @@ private static final long serialVersionUID = 1L;
 	
 	public NewUserInfo() {};
 	
-	public NewUserInfo(String userName, String userSurname, String birthday, String email, String login, String password) {
+	public NewUserInfo(String userName, String email, String login, String password) {
 		super();
 		this.userName=userName;
-		this.userSurname=userSurname;
-		this.birthday=birthday;
 		this.email=email;
 		this.login=login;
 		this.password=password;		
@@ -40,22 +36,6 @@ private static final long serialVersionUID = 1L;
 
 	public void setUserName(String userName) {
 		this.userName = userName;
-	}
-	
-	public String getUserSurname() {
-		return userSurname;
-	}
-
-	public void setUserSurname(String userSurname) {
-		this.userSurname = userSurname;
-	}
-
-	public String getBirthday() {
-		return birthday;
-	}
-
-	public void setBirthday(String birthday) {
-		this.birthday = birthday;
 	}
 
 	public String getEmail() {
@@ -92,7 +72,7 @@ private static final long serialVersionUID = 1L;
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(birthday, email, login, password, role, userName, userSurname);
+		return Objects.hash(email, login, password, role, userName);
 	}
 
 	@Override
@@ -104,18 +84,15 @@ private static final long serialVersionUID = 1L;
 		if (getClass() != obj.getClass())
 			return false;
 		NewUserInfo other = (NewUserInfo) obj;
-		return Objects.equals(birthday, other.birthday) && Objects.equals(email, other.email)
-				&& Objects.equals(login, other.login) && Objects.equals(password, other.password)
-				&& Objects.equals(role, other.role) && Objects.equals(userName, other.userName)
-				&& Objects.equals(userSurname, other.userSurname);
+		return Objects.equals(email, other.email) && Objects.equals(login, other.login)
+				&& Objects.equals(password, other.password) && Objects.equals(role, other.role)
+				&& Objects.equals(userName, other.userName);
 	}
 
 	@Override
 	public String toString() {
-		return "NewUserInfo [userName=" + userName + ", userSurname=" + userSurname + ", birthday=" + birthday
-				+ ", email=" + email + ", login=" + login + ", password=" + password + ", role=" + role + "]";
+		return "NewUserInfo [userName=" + userName + ", email=" + email + "]";
 	}
-
 	
 	
 	
