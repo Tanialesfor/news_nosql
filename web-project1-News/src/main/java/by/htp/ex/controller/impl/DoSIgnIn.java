@@ -1,7 +1,6 @@
 package by.htp.ex.controller.impl;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import by.htp.ex.controller.Command;
 import by.htp.ex.service.ServiceException;
@@ -44,7 +43,7 @@ public class DoSIgnIn implements Command {
 				request.getRequestDispatcher("/WEB-INF/pages/layouts/baseLayout.jsp").forward(request, response);
 			}
 			
-		} catch (ServiceException | ClassNotFoundException | SQLException e) {
+		} catch (ServiceException e) {
 			request.getSession().setAttribute(ERROR_MESSAGE, e.getMessage());
 			response.sendRedirect("controller?command=go_to_error_page");
 		}			

@@ -1,11 +1,9 @@
 package by.htp.ex.dao.impl;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Random;
 
 import by.htp.ex.bean.NewUserInfo;
 import by.htp.ex.bean.Role;
@@ -13,15 +11,7 @@ import by.htp.ex.dao.DaoException;
 import by.htp.ex.dao.DaoProvider;
 import by.htp.ex.dao.IUserDAO;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-public class UserDAO implements IUserDAO {	
-	
+public class UserDAO implements IUserDAO{
 	
     List<Role> roleArray = new ArrayList<Role>();
     {
@@ -55,7 +45,7 @@ public class UserDAO implements IUserDAO {
 		userArray.add(new NewUserInfo ("Ula", "ula.1999@gmail.com","ula1999", "5551999", getRole("user")));
 	 }  
 
-	public NewUserInfo getUser(String login){					
+	public NewUserInfo getUser(String login) {
 		for (NewUserInfo element : userArray) {
 			if (element.getLogin().equals(login)) {
 				return element;
@@ -65,64 +55,23 @@ public class UserDAO implements IUserDAO {
 	}
 	
     @Override
- 	public boolean logination(String login, String password) throws DaoException,  SQLException, ClassNotFoundException {
-    	    	
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-		Connection con = null;
-		ResultSet rs = null;
-		
-		try {
-		con = DriverManager.getConnection("jdbc:mysql://127.0.0.1/news?useSSL=false", "root", "123456");
+ 	public boolean logination(String login, String password) throws DaoException {
+    	 /*
+ 		 * Random rand = new Random(); int value = rand.nextInt(1000);
+ 		 * 
+ 		 * if(value % 3 == 0) { try { throw new SQLException("stub exception");
+ 		 * }catch(SQLException e) { throw new DaoException(e); } }else if (value % 2 ==
+ 		 * 0) { return true; }else { return false; }
+ 		 */
 
-		String sql = "SELECT password FROM users WHERE login = ?";
-		PreparedStatement ps = con.prepareStatement(sql);
-		ps.setString(1, login);
-		
-		rs = ps.executeQuery();
-		while (rs.next()) {
-	        if (rs.getString("password").equals(password)) {
-	        	return true;
-	        }
-		}
-
-// 		for (NewUserInfo element : userArray) {
-//			if (element.getLogin().equals(login)==true) {
-//				if (element.getPassword().equals(password)==true) {
-//					return true;
-//				}
-//			}			
-//		}    	 
-    	
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if (rs != null) {
-					rs.close();
+ 		for (NewUserInfo element : userArray) {
+			if (element.getLogin().equals(login)==true) {
+				if (element.getPassword().equals(password)==true) {
+					return true;
 				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-//			try {
-//				if (st != null) {
-//					st.close();
-//				}
-//			} catch (SQLException e) {
-//				e.printStackTrace();
-//			}
-			
-			try {
-				if (con != null) {
-					con.close();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-
-		}
-    	return false;		
+			}			
+		}    	 
+    	return false;
  	}
      
 	@Override
@@ -136,14 +85,14 @@ public class UserDAO implements IUserDAO {
 	}    
     
      	
-	public String getRole(String login, String password) throws DaoException, SQLException, ClassNotFoundException {
+	public String getRole(String login, String password) throws DaoException {
 			if (logination(login, password)==true) {
 				return getUser(login).getRole().getNameofRole();
 			}						
 		return "guest";
 	}
 	
-	public boolean isAdmin(String login, String password) throws DaoException, SQLException, ClassNotFoundException {
+	public boolean isAdmin(String login, String password) throws DaoException {
 		if (logination(login, password)==true) {
 			return getUser(login).getRole().getAdminProperty();
 		}						
@@ -151,7 +100,7 @@ public class UserDAO implements IUserDAO {
 	}	
 
 	@Override
-	public boolean registration(NewUserInfo user) throws DaoException, SQLException, ClassNotFoundException  {				
+	public boolean registration(NewUserInfo user) throws DaoException  {				
 		if (loginExist(user.getLogin())==false) {
 			user.setRole(getRole("user"));
 			userArray.add(user);
